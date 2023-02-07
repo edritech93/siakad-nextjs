@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { Console } from 'console';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,7 @@ export default function Home(props: IHome) {
       <main className={styles.main}>
         <ul>
           {props.data.map((item) => (
-            <li key={item.id}>{item.name}</li>
+            <li key={item.id}>{item.fullName}</li>
           ))}
         </ul>
       </main>
@@ -33,7 +34,7 @@ export default function Home(props: IHome) {
 // This gets called on every request
 export async function getServerSideProps() {
   // Fetch data from external API
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users`)
+  const res = await fetch(`http://localhost:3000/api/users`)
   const data = await res.json()
 
   // Pass data to the page via props
@@ -42,5 +43,5 @@ export async function getServerSideProps() {
 
 type DataType = {
   id: number;
-  name: string;
+  fullName: string;
 }
